@@ -1,0 +1,50 @@
+1. Git工作区域：
+		工作区 --> 暂存区 --> Git仓库;
+
+2. 工作区提交至暂存区：
+		git add file_name;
+		git status //查看状态
+	
+		暂存区提交至git仓库：
+			git commit -m "提交描述"
+	
+3. Git初始化：
+		基本信息设置：
+			a. 设置用户名：
+					git config --global user.name 'momoteas'
+			b. 设置用户名邮箱：
+					git config --global user.email 'hubin1113@126.com'
+		
+		初始化一个新的Git仓库：
+			a. 创建文件夹
+			b. 在文件夹内初始化git：
+					git init (文件夹内生成一个.git文件夹，存储该仓库信息)
+		
+		向仓库添加文件：
+			a. 在该文件夹内新建一个文件
+			b. git add file_name将该文件添加至仓库暂存区（git status查看添加状态）
+			c. git commit -m '描述信息' 将暂存区文件提交至仓库（git status查看状态）
+			
+		修改文件：
+			a. 修改相关文件
+			b. 重复上述3个步骤
+		
+		删除文件：
+			a. rm 删除文件夹内文件
+			b. git rm file_name 删除暂存在文件
+			c. 提交操作：
+					git commit -m '描述信息'
+			
+4. Git管理远程仓库：
+		Git克隆操作
+			a. 目的：
+					将远程仓库（git对应的项目）复制到本地
+			b. 代码：
+					git clone 仓库地址
+		
+		本机仓库操作：（相关增删改操作...）
+		
+		将本地仓库同步到远程仓库：
+			git push
+					
+			
