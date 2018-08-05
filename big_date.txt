@@ -1,0 +1,88 @@
+
+1. 配置网络：
+		a. ip地址：
+				vi /etc/sysconfig/network-script/ifconfig-ens..:
+					IPADDR = 192.168.121.xxx
+					NETMASK = 255.255.255.0
+					GATEWAY = 与虚拟机的路由器地址保持一致
+					DNS2 = 与路由器地址保持一致
+					DNS1 = 114.114.114.114
+		
+		b. 开启网络：
+				vi /etc/sysconfig/network
+					NETWORKING = yes
+					HOSTNAME = xxx
+		
+		c. 别名（域名）
+				vi /etc/hosts
+					192.168.121.xxx  master(别名)
+					...
+					...
+		
+		d. 测试
+				ping ip地址 or 别名
+		
+
+2. 免密登录：
+		a. 生成密码：
+				ssh-keygen
+		
+		b. 将免密文件复制到目标客户机
+				ssh-copy-id root@客户机 （注：以后将会以root的身份进行免密登录）
+				
+
+3. mysql安装：
+		a. 安装mysql（mariadb.x86_64是mysql的一个社区版本）:
+				yum install -y mysql
+		
+		b. 安装mariadb-server:
+				yum install mariadb-server
+		
+		c. 初始化密码（通过上述mariadb.server进行初始化）：
+				mysql_secure_installation命令设置密码
+
+
+4. 远程文件操作：
+		a. 远程拷贝：
+				scp [-r] file_name root@客户机:/目标地址
+		
+		b. 远程下载：
+				Alt + p 快捷键调研sfty窗口
+				put file_name
+
+
+5. vim快捷键：
+		G: 		文件最后一行
+		yy:		复制当前行
+		dd:		删除当前行
+		o:		下一行插入一行
+		A：		定位至行尾
+		
+		
+6. linux命令：
+		export:	自定义变量至全局静态变量
+		source:	读取并执行文件中的命令（source /etc/profile）
+		service service_name start: 启动服务
+		systemctl start service_name: 启动服务
+		netstat -nltp: 查看网络连接，路由表等
+		iptables: 防火墙
+		firewalld: 防火墙
+		chkconfig service_name on(off): 更新或查询系统服务启动等级
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
