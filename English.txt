@@ -10,9 +10,43 @@
 	面举的例子中,因为是born in sw,所以用in which.你这句中的of which我想也是这样,因为有include of sth的用法,判断这个介词的时候,你就
 	把这个介词拖到句末去看就是了.
 	
+
 2. may not be , may be not区别：
 		may not be 是表示表示一种可能性,可能不是,而may be no表示肯定不是,例如
 		[1] She may be not a student, ...
 			Meaning => True, she is not a student
 		[2] She may not be a student.
 			Meaning => There is a possibility that she is not a student
+			
+			
+3. 介词for:
+		a. 表示目的：
+			the current thread becomes disabled for thread scheduling purposes.
+			
+			
+4. whether:
+		whether和if都可以引导宾语从句，表示“是否”，在口语或间接引语中两者可以互换使用。如：
+			I wonder if / whether I can get some advice from you.
+			Ask him whether / if he can come.
+		
+		但在有些情况下，whether和if的用法有一定区别。
+			1. whether引导的从句常可以与连词or或or not直接连用，而if一般不能。如：
+				正： Let me know whether you can come or not.
+				误： Let me know if you can come or not.
+		2. 当宾语从句提到句首时，只能用whether引导，而不能用if。如：
+			正： Whether it is true or not, I can’t tell.
+			误： If it is true or not, I can’t tell.
+		3. whether可以引导带to的不定式，if则不能。如：
+			正： I don’t know whether to accept or refuse.
+			误： I don’t know if to accept or refuse.
+		4. whether及其引导的成分可放于介词之后，作介词的宾语，但if不能。如：
+			正： I worry about whether I hurt her feelings.
+			误： I worry about if I hurt her feelings.
+		5. whether可以引导从句，作主语、表语或同位语，而if不能。如：
+			正： It was uncertain whether he would come.
+			误： It was uncertain if he would come.
+			正： His first question was whether Tom had arrived yet.
+			误： His first question was if Tom had arrived yet.
+			正： We must consider the question whether we will take these measures.
+			误： We must consider the question if we will take these measures.
+	
