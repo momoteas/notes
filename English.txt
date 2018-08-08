@@ -50,3 +50,107 @@
 			正： We must consider the question whether we will take these measures.
 			误： We must consider the question if we will take these measures.
 	
+	
+5. outside out区别:
+		outside 更多的表示一种状态。
+			<例> She is outside the room. 意为她在房间外。
+			
+		out在表示"在外面"时则需加介词补全
+			<例> She went out of the room. 意为她走出了房间。
+			
+		现代英语的口语中也经常说She is out. 表示她不在家。		
+		所以你给的句子中要将out改为outside, 也可以在后面加上of.不过在此outside表达意思更为准确
+	
+	
+6. be of noun:
+		be + of + noun可以理解为be+名词对应的形容词:
+
+			比如 Team spirit is of importance. 团队精神很重要.
+
+			这句话也就同Team spirit is important.意思一样.
+			
+			
+7. though, although区别：
+		①although和though同义,在一般情况下,可以互换使用.只是though较普遍,常用于非正式的口语或
+		书面语中,而although则较为正式.另外although语气比though重,常用以强调让步概念；
+			Though/Although my car is very old,I don't want to buy a new one.
+			虽然我的汽车很旧,但我不想买一辆新的.
+			He insisted on doing it although I warned him not to.
+			虽然我警告他不要做,但他仍然坚持要做.
+			
+		②even能和though组合表示强调,但even不能和although组合：
+			e.g.Even if/Even though we could afford it,we wouldn't go abroad for our vocation.
+			即使我们付得起这笔钱,也不出国度假.
+			
+		③当让步状语从句指某种假设情况时,通常用though,而不用although：
+			e.g.Though all the world were against me,I should still hold to my opinion.
+			就算全世界都反对我,我还是坚持我的立场.
+			Though everybody deserts you,I will not.
+			即使所有人都抛弃你,我也不会的.
+		
+		④though可以独立用作副词,常放在句末,意为all the same (还是；仍然)或however(可是；然而),而although无此用法
+			e.g.She didn't tell me what she had done,but I know it though.
+			她没有告诉我她所做的事情,但我还是知道了.
+			It's hard work.I enjoy it,though.
+			工作很苦,可是我喜欢.
+	
+		⑤though引导让步状语从句时可以倒装,而although从句则不能.
+			e.g.Bravely though they fought,they had no chance of winning.
+			虽然他们打得很勇敢,但还是没有机会获胜.
+	
+	相同点：①在although和though引导的让步状语从句中,主句里不可用but,若要强调前后两部分的对比意义,可在主句前加yet或still.
+			e.g.Although/Though he has a lot of money,yet/still he is unhappy.
+			他虽然有很多钱,但并不幸福.
+			
+			
+8. in, within区别：
+		1.in：过……后（未来时间）
+			注意：
+				如果用于过去时,用after +时间：
+					She went to Nanjing last May,and she came back after a month.
+					去年五月她去了南京,一个月之后她又回来了.
+				大多用在将来时（一般将来时和过去将来时）：
+					in an hour 一小时之后
+					in a week or so 一个多星期之后
+					He will be back in five hours.他五小时之后回来.
+		
+		2.within：不超过……的范围
+			比较：
+				within强调在……时间之内,没有时态的限制.
+				in是以现在为基准,in an hour是指从现在起1小时之后,所以一般只用于将来时.
+					within 3 hours 3小时之内
+					I must finish painting the cat within five minutes.我必须在五分钟之内画好这只猫.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
