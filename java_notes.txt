@@ -1,0 +1,66 @@
+
+1. wait(), notify():
+		使用在线程同步中，需要配合synchronized(obj)
+		例如：
+			Thread_1:
+				synchronized(obj){
+					...
+					this.wait();
+				}
+				
+			Thread_2:
+				synchronized(obj){
+					...
+					this.notify();
+				}
+				
+
+2. Synchronized理解：
+			a. 即拿到这把锁的线程执行Synchronized{}块中的业务逻辑，各线程中的业务逻辑可以相同，也可以不同。关键是只有拿到
+		“锁”的线程才能进行执行动作；
+			
+			b. Synchronized还可以修饰方法；
+		
+			Thread_1:
+				Synchronized(obj){
+					业务逻辑_1
+				}
+			
+			Thread_2:
+				Synchronized(obj){
+					业务逻辑_2
+				}
+				
+				
+3. Lock:
+			a. java.util.concurrent.locks是一个interface;
+			
+			b. 实现类：java.util.concurrent.locks.ReentrantLock
+			
+			c. 基本使用方法：
+				Lock lock = new ReentrantLock();
+				...
+					lock.lock();
+					...
+					lock.unlock();
+				...
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
