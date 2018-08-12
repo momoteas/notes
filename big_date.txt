@@ -57,10 +57,12 @@
 		dd:		删除当前行
 		o:		下一行插入一行
 		A：		定位至行尾
+		ctrl + f: 向前翻页
+		ctrl + b: 向后翻页
 		
 		
 6. linux命令：
-		export:	自定义变量至全局静态变量
+		export:	自定义变量，会对自己所在的shell进程及子进程生效				
 		source:	读取并执行文件中的命令（source /etc/profile）
 		service service_name start: 启动服务
 		systemctl start service_name: 启动服务
@@ -69,7 +71,11 @@
 		firewalld: 防火墙
 		chkconfig service_name on(off): 更新或查询系统服务启动等级
 		chmod:	更改文件权限
-		
+		ps -ef: 
+				ps: process state
+				-e:	entire
+				-f: Do full-format listing
+		pstree:	查看当前shell进程树
 		
 7. zookeeper:
 		a. 依赖：	jdk
@@ -210,15 +216,42 @@
 				或者在脚本中增加set -x
 
 				
+9. hadoop安装相关问题：
+		a. ./autogen.sh: 4: autoreconf: not found:
+			因为没有安装automake 工具, sudo apt-get install autoconf automake libtool
 				
+		b. CMake Error: your CXX compiler: "CMAKE_CXX_COMPILER-NOTFOUND" was not found.   Please set CMAKE_CXX_COMPILER
+			to a valid compiler path or name.
+
+			出现这个问题的原因是缺少了g++编译工具执行命令：yum install gcc-c++       		
 				
+		c. hadoop安装依赖：
+			maven, ant, protobuf(>2.5.0版本), findbugs, autoconf, auto make, libtool, cmake, openssl-devel, ncurses-devel,
+			zlib-devel, gcc-c++
 				
+
+10. hadoop相关配置：
+		a. 配置：
+			../etc/hadoop/中的相关5个文件：hadoop.env.sh, core-site.xml, hdfs-site.xml, mapred-site.xml, yarn-site.xml；
+		
+		b. 配置：
+			hadoop中bin, sbin文件夹中的命令的环境变量；
+
+		c. 格式化namenode:
+				hdfs namenode -format
 				
-				
-				
-				
-				
-				
+		d. 自动化启动：
+			1). 更改文件：../etc/hadoop/slaves，此文件为脚本自动启动datanode, nodemanager的slave机器
+			2). 脚本命令：../sbin: 
+				首先启动namenode，datanode: start-dfs.sh；
+				其次启动resourcemanager, nodemanager: start-yarn.sh
+		
+		e. win7环境中使用eclipse编写hadoop客户端程序时，出现：java.lang.NullPointerException 
+			at java.lang.ProcessBuilder.start(Unknown Source) at org.apache.hadoop.util.Shell.runCommand(Shell.java:482)
+			解决方法：
+				1). 使用在windows环境编译的hadoop中的../bin 和 ../lib文件夹中的文件；
+				2). 给../bin文件夹配置环境变量；
+				3). 在../system32文件夹中加入hadoop.dll文件；
 				
 				
 				

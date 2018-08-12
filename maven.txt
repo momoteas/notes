@@ -1,0 +1,145 @@
+
+1. 依赖管理：
+		坐标概念：
+			公司名称（apache） + 项目名称（struts） + 版本号（2.3.12）：构成jar包坐标
+			
+	
+2. 项目构建：
+		a. 概念：
+			项目构建是指，在项目编码完成后，对项目进行编译，测试，打包，部署等的一系列操作都通过命令来实现；
+			
+
+3. maven安装：
+		a. maven是使用java开发的，既需要jdk环境；
+		
+		b. 下载并解压安装文档
+		
+		c. 配置环境变量：.../bin
+		
+		
+4. 仓库类型：
+		a. 本地仓库：本地硬盘；
+		
+		b. 私服：本地局域网内的一台服务器；
+		
+		c. 中央仓库：互联网中存放jar包的仓库；
+		
+		
+5. 配置maven本地仓库：
+		a. .../conf/settings.xml, 修改该配置文件中的 <localrepository> 路径信息 </localrepository>
+		
+		
+6. maven项目标准目录结构：
+		a. pom.xml：
+			project object modle;
+			maven项目配置文件；
+			
+		b. target文件夹：
+			src中项目源码编译完成后的存放地址；
+			
+		c. src文件夹：
+			项目源码；
+			该文件夹下：src/main/: 主要源代码
+							 .../java/:java源代码
+							 .../resource/：项目配置文件
+							 .../webapp/: 页面相关文件
+							 
+						src/test/: 单元测试
+							 .../java/: 单元测试类
+							 .../resource/：项目测试配置文件
+			
+		d. 
+		
+		
+7. maven常用命令：
+		a. 目的：用于项目构建；
+		
+		b. 命令：
+			1). clean: 清除target目录下的.class文件
+			2). compile: 编译
+			3). test: 单元测试
+					  对类名有要求：xxxTest.java才会进行测试
+			4). package: 打包 （编译 --> 测试 --> 打包 --> 存放到target目录下）	
+			5). install:安装（解决多个项目公用一个jar包，将本地项目打包并安装到本地仓库中）
+			
+			
+8. maven项目生命周期：
+		a. 三套生命周期：每一套都是相互独立的，互不影响。在一套生命周期里，执行后面的命令，前面的命令自动执行。
+			1). CleanLifeCycle：清理生命周期，包含：clean
+			2). DefaultLifeCycle: 默认生命周期，包含：compile --> test --> package --> install --> deploy
+			3). SiteLifeCycle: 站点生命周期，包含：site
+			
+			
+9. eclipse配置maven插件：
+		a. 配置eclipse中的maven环境：
+			
+		b. 安装maven程序：preference --> maven --> install
+		
+		c. 配置settings.xml: preference --> maven --> user setting
+		
+		d. 构建索引：提高检索速度
+					 show view --> maven ---> repositories --> 右键 rebuild index
+			
+			
+10. 创建maven项目并查找依赖：
+		a. maven project: 创建普遍maven项目或父工程；
+		
+		b. maven module: 创建父工程的maven子模块;
+		
+		c. group id: 公司名称（一般公司域名倒序）
+		
+		d. artifact id: 项目名称
+		
+		e. version: 版本信息（snapshot: 测试版本； release: 正式版本）
+		
+		f. packaging: 打包方式，jar, war, pom(父工程选择pom)
+			
+		g. 创建好的web项目产生2个错误：
+			1). web.xml缺失
+			2). jdk编译版本1.5，在pom.xml中添加插件
+		
+		h. 创建servlet: 编译报错，原因：缺失servlet-api-xx.jar包
+		
+		i. 查找依赖：pom.xml --> dependencies --> add --> 搜索jar包 --> 添加
+		
+			
+11. 依赖范围：
+		a. 添加依赖范围：默认是compile (编译，测试，运行都需要)
+							   provided: 运行部署到tomcat不需要；
+										 解决：dependencies --> properties --> scope --> provided
+						 总结：如果使用到tomcat自带的jar包，将项目中依赖作用范围设置为：provided;
+		
+			
+12. 运行测试maven项目：
+		a. 直接运行：右键项目 --> run as --> maven build...(手动输入命令) 
+		
+		b. 调试运行：右键项目 --> debug as --> maven build...(手动输入命令) -- source(关联源码) -- add(源码)
+			
+			
+13. maven概念模型：
+		a. 两个核心：依赖管理， 项目构建
+			
+			
+14. maven国内仓库镜像：
+		<mirrors>
+			<mirror>
+			  <id>alimaven</id>
+			  <name>aliyun maven</name>
+			  <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			  <mirrorOf>central</mirrorOf>       
+			</mirror>
+		</mirrors>
+				
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
