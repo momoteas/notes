@@ -32,6 +32,76 @@
 			e. make install 将编译完成后的文件复制到相关文件系统目中；
 			注意事项：编译过程中缺少的相关依赖可以通过error信息得到提示；
 					  可以通过阅读makefile文件加深对编译安装过程的理解；
+					  
+		rpm:
+			安装：
+				-ivh  filename
+				--prefix
+			升级：
+				-Uvh
+				-Fvh
+			卸载：
+				-e PACKAGE_NAME
+			查询：
+				rpm -qa : 查询已经安装的所有包
+				rpm -q  PACKAGE_NAME: 查询指定的包是否已经安装
+				rpm -qi PACKAGE_NAME: 查询指定包的说明信息
+				rpm -ql PACKAGE_NAME: 查询指定包安装后生成的文件列表
+				rpm -qc PACEAGE_NEME：查询指定包安装的配置文件
+				rpm -qd PACKAGE_NAME: 查询指定包安装的帮助文件
+				rpm -q --scripts PACKAGE_NAME: 查询指定包中包含的脚本	
+				rpm -qf /path/to/somefile: 查询文件是由哪个rpm包安装生成的	
+				如果某rpm包尚未安装，需查询其说明信息、安装以后会生成的文件
+				rpm -qpi /PATH/TO/PACKAGE_FILE
+				rpm -qpl 
+		
+		yum:
+			安装:
+				基于rpm包管理
+				提供rpm仓库
+			repo：
+				/etc/yum.repos.d/	(配置文件)
+				[repoID]
+				baseurl=
+				http://
+				file://
+				ftp://
+				gpgcheck=1/0
+				enable=0/  1
+			仓库设置：
+				repo国内源：
+					http://mirrors.aliyun.com
+					centos-->help
+					before:yum install wget
+					....
+				repo本地目录源：
+					mount /dev/cdrom /mnt
+					vi /etc/yum.repos.d/local.repo
+					[local]
+					baseurl=file:///mnt
+					gpgcheck=0
+					enable=1
+			yum命令：
+				yum repolist
+				yum clean all
+				yum makecache
+				yum update
+			查询：
+				yum list
+				yum search
+				yum info
+			安装&卸载：
+				yum install 
+				remove | erase
+			yum组命令：
+				yum grouplist
+				yum groupinfo
+				yum groupinstall
+				yum groupremove
+				yum groupupdate
+
+
+
 			
 			
 3. sed行编辑器：
@@ -119,6 +189,47 @@
 						print i "\t" name[i]}
 					}'   
 					awk.txt
+					
+					
+5. 重定向：
+		重定向：不是命令
+			程序自身都有I/O
+				0：标准输入
+				1：标准输出
+				2：错误输出
+			控制程序I/O位置
+			一切皆文件
+			/proc/$$/fd
+			程序是否处理I/O？
+			绑定顺序：从左到右
+			
+		例如：	
+			ls -l /   /god   1> out.txt   2>&    1
+				1，重定向有顺序
+				2，重定向操作符，
+				左侧与文件描述符不能有空格
+				右侧，如果也是文件描述符，需要搭配&，同时与&符号不能有空格
+
+		输出重定向：
+			修改程序的1或2
+			>
+			>>：追加
+			&>,>&			
+					
+		输入重定向：
+			<：文件
+			<<： 多行，但以换行符作为结点
+			<<<：单行输入			
+					
+		全重定向：socket案例
+			exec 8<> /dev/tcp/www.baidu.com/80 （输入/输出都指向8文件描述符）
+			echo -e "GET / HTTP/1.0\n" >& 8
+			cat <& 8
+
+
+
+
+		
 
 		
 		
