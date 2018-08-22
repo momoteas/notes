@@ -1,0 +1,144 @@
+
+1. 权限管理：
+		创建用户：
+			useradd:	useradd andy
+			passwd:		passwd ******
+		
+		修改属性：
+			mkdir /var/swapdata
+				1,权限修正：
+				chmod  770  swapdata   |  chmod  o-rwx g+rwx   swapdata
+				
+				2,修正属组
+				groupadd sxtswap
+				usermod -a -G sxtswap sxt01		#将sxt01的（-G）组（-a append）追加一个sxtswap;
+				usermod -a -G sxtswap sxt02
+				chown  root:sxtswap swapdata	#更改swapdata的所有者为root, 所属组为sxtswap;
+				chown :sxtswap   ooxx.file		#更改ooxx.file的所有者为当前所有者，所属组为sxtswap;
+				chmod  770 ooxx.file
+
+				
+2. 安装软件：
+		方式：
+			编译安装；个性化安装，删除某些不需要的部分；
+			rpm包安装：如oracle的jdk，需要在oracle的网站进行同意相关协议后，方可下载软件包，然后进行rpm安装；
+			yum仓库安装：yum仓库只存放某些免费且开源的软件；
+			
+		安装步骤：
+			a. 解压软件包；
+			b. 阅读README文件，含相关安装指导说明；
+			c. ./configure --help: 阅读相关辅助安装选项说明
+			d. make 进行编译；
+			e. make install 将编译完成后的文件复制到相关文件系统目中；
+			注意事项：编译过程中缺少的相关依赖可以通过error信息得到提示；
+					  可以通过阅读makefile文件加深对编译安装过程的理解；
+			
+			
+3. sed行编辑器：
+		sed [options] 'AddressCommand' file ...
+			-n: 静默模式，不再默认显示模式空间中的内容
+			-i: 直接修改原文件
+			-e SCRIPT -e SCRIPT:可以同时执行多个脚本
+			-f /PATH/TO/SED_SCRIPT
+			-r: 表示使用扩展正则表达式
+			-d: 删除符合条件的行；
+			-p: 显示符合条件的行；
+			-a \string: 在指定的行后面追加新行，内容为string
+			   \n：可以用于换行
+			-i \string: 在指定的行前面添加新行，内容为string
+			-r FILE: 将指定的文件的内容添加至符合条件的行处
+			-w FILE: 将地址指定的范围内的行另存至指定的文件中; 
+			-s/pattern/string/修饰符: 查找并替换，默认只替换每行中第一次被模式匹配到的字符串
+			-g: 行内全局替换
+			-i: 忽略字符大小写
+			-s///: s###, s@@@	
+				\(\), \1, \2
+				
+		Address：
+			可以没有
+			给定范围
+			查找指定行/str/
+
+		例如：sed  's/\(id:\)[0-6]\(:initdefault:\)/\15\2/ig'  inittab
+
+		
+4. awk:
+		简介：
+			awk是一个强大的文本分析工具。
+			相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。
+			简单来说awk就是把文件逐行的读入，（空格，制表符）为默认分隔符将每行切片，切开的部分再进行各种分析处理。
+
+		功能：
+			awk -F '{pattern + action}' {filenames}
+				支持自定义分隔符
+				支持正则表达式匹配
+				支持自定义变量，数组  a[1]  a[tom]  map(key)
+				支持内置变量
+				ARGC               命令行参数个数
+				ARGV               命令行参数排列
+				ENVIRON            支持队列中系统环境变量的使用
+				FILENAME           awk浏览的文件名
+				FNR                浏览文件的记录数
+				FS                 设置输入域分隔符，等价于命令行 -F选项
+				NF                 浏览记录的域的个数
+				NR                 已读的记录数
+				OFS                输出域分隔符
+				ORS                输出记录分隔符
+				RS                 控制记录分隔符
+				支持函数
+				print、split、substr、sub、gsub
+				支持流程控制语句，类C语言
+				if、while、do/while、for、break、continue
+				
+		例如：
+			只是显示/etc/passwd的账户:CUT
+			awk -F':' '{print $1}' passwd
+			
+			只是显示/etc/passwd的账户和账户对应的shell,而账户与shell之间以逗号分割,而且在所有行开始前添加列名name,shell,
+			在最后一行添加"blue,/bin/nosh"（cut，sed）
+			awk -F':' 'BEGIN{print "name,shell"} {print $1 "," $7} END{print "blue,/bin/nosh"}' passwd
+			
+			搜索/etc/passwd有root关键字的所有行
+			awk  '/root/ { print $0}'   passwd
+			统计/etc/passwd文件中，每行的行号，每行的列数，对应的完整行内容
+
+			统计报表：合计每人1月工资，0：manager，1：worker
+				Tom	 0   2012-12-11      car     3000
+				John	 1   2013-01-13      bike    1000
+				vivi	 1   2013-01-18      car     2800
+				Tom	 0   2013-01-20      car     2500
+				John	 1   2013-01-28      bike    3500
+			awk  '{
+					split($3,date,"-");
+					if(date[2]=="01"){
+						name[$1]+=$5
+					}
+				  } 
+					END{
+						for(i in name){
+						print i "\t" name[i]}
+					}'   
+					awk.txt
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
