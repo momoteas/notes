@@ -361,7 +361,100 @@
 				sh -vx helloWorld.sh
 				或者在脚本中增加set -x
 				
+		注意事项： 
+				1>. IFS:
+						环境变量IFS包含三个ascii码字符，空格，\t, \n，该环境变量用于shell对行字符串进行切分使用。
+					应用场景：ls -l /bin, shell自动进行切分；
+				   
+				2>. &&：
+						在编写shell脚本时，涉及逻辑连接时，一般建议使用一种统计的连接符，取反情况结合！使用；
+						例如，如下为自动添加user脚本：
+							#!/bin/bash
+
+							[ ! $# -eq 1 ] && echo "args error..." && exit 1
+
+							id $1 >& /dev/null  && echo "user already exists..." && exit 1
+
+							useradd $1 >& /dev/null
+
+							echo $! | passwd --stdin >& /dev/null
+
+							echo "user added successfully..."
+
+							exit 0
+							
+				3>. "" vs '':
+						在shell中，“”为弱引用，可以解释“$1”双引号中的变量引用；而‘’单引号为强引用，即忽略单引号的特殊定义；
+						使用场景：在shell脚本中使用awk命令时，一般使用‘’单引号；
+
+							
+				4>. 管道 |：
+						注，管道两边的时命令，即需要开辟子进程进行执行；
+
 				
+				5>. 命令替换 $()和``：
+						含义：即先执行$()和``中的命令，然后将执行结果替换$()和``中的内容，即命令替换；
+						
+						
+				6>. 变量替换 ${}：
+						含义：与命令替换含义相同；
+						
+						
+				7>. shell中的七步扩展：
+						含义：即对于一条命令，shell会优先按照如下顺序，对命令进行扩展替换，然后再整体执行；
+							1). 花括号  mkdir  -p sdfsdf/{a,b,c}sdfsdf
+							2). 波浪线 cd ~god
+							3). 变量&参数  $  $$  ${}(.....)
+							4). 命令替换 ls -l `echo $path`
+							5). 算术扩展  num=$((3+4))
+							6). word拆分，$IFS
+							7). 路径  *（零到多个任意字符）？
+							8). 引用删除   echo "hello"
+							*). 重定向  >  
+
+						参考：man bash
+				
+				
+				8>. shell学习：
+						help: 内部命令帮助
+						man: 详细帮助
+						man bash: shell文档
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 				
 				
 				
