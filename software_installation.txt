@@ -1,0 +1,6 @@
+
+1. mysql:
+		a. 首先安装mysql;
+		b. 安装mariadb-server;
+		c. 启动服务：systemctl start mariadb.service
+		d. 添加到开机启动：systemctl enable mariadb.service
