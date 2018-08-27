@@ -41,3 +41,10 @@
     　      **in %al, PortAddress    向端口地址为PortAddress的端口写入值，值为al寄存器中的值**
 
     　　  out PortAddres,%al    把端口地址为PortAddress的端口中的值读入寄存器al中
+
+  * An ELF binary starts with a fixed-length *ELF header*, followed by a variable-length *program header* listing each of the program sections to be loaded. The C definitions for these ELF headers are in `inc/elf.h`. The program sections we're interested in are:
+    - `.text`: The program's executable instructions.
+    - `.rodata`: Read-only data, such as ASCII string constants produced by the C compiler. (We will not bother setting up the hardware to prohibit writing, however.)
+    - `.data`: The data section holds the program's initialized data, such as global variables declared with initializers like `int x = 5;`.
+
+  * When the linker computes the memory layout of a program, it reserves space for *uninitialized* global variables, such as `int x;`, in a section called `.bss` that immediately follows `.data` in memory. C requires that "uninitialized" global variables start with a value of zero. Thus there is no need to store contents for `.bss` in the ELF binary; instead, the linker records just the address and size of the `.bss` section. The loader or the program itself must arrange to zero the `.bss` section.
