@@ -180,7 +180,7 @@ With的定义：
 ```
 #### 单词：
 	as a rule of thumb: 依据经验；
-	
+
 
 ```
 	be meant to: 有意要，打算	
@@ -225,6 +225,24 @@ Somehow the cold gets these plants primed for maximum production. 　　不知�
 somewhat： 　　[adv.](https://www.baidu.com/s?wd=adv.&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao)稍微；有点； 达到某种程度； 　　n.少量；某些数量；某种程度。 　　
 
 The idea of experiencing new places together seemed somewhat romantic to me. 　　要一起体验新天地的想法对我来说有些浪漫
+
+### in which case, in that case
+
+在in that case中，that是指示代词，因此，in that casez在句子中不能起引导从句的作用；而in which case中which是关系代词，因此它引导定语从句；
+
+例如：
+
+	in that case, he would be punished  要是情况如此，他将会受到惩罚
+
+	she may be late, in which case we ought to wait for her  她可能晚到，那样我们就要等等她
+
+#### 关系代词、人称代词和指示代词的选择
+
+选关系代词还是人称代词或指示代词关键是分清句子结构。如果是非限制性定语从句（两句之间用逗号隔开，且无连词），用关系代词，如果是并列句（全句中有连词，两句中间为句号或分号），用人称代词或指示代词
+
+
+
+
 
 
 
