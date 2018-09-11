@@ -706,6 +706,7 @@
 						
 		4. 启动
 			配置HBASE_HOME及环境变量
+			start-hbase.sh
 			hbase shell
 						
 						
