@@ -701,6 +701,8 @@
 			4). backup-masters
 					node4
 			5). 拷贝hdfs-site.xml到hbase/conf/
+			6). 在任一zookeeper机器上，启动zkCli.sh命令启动客户端，创建/hbase结点：create /hbase myhbase(结点值)
+			
 						
 		4. 启动
 			配置HBASE_HOME及环境变量
