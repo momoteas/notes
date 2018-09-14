@@ -708,7 +708,8 @@
 			配置HBASE_HOME及环境变量
 			start-hbase.sh
 			hbase shell
-			
+
+=============================================================================================			
 			
 14. sqoop
 		1). 安装：
@@ -774,7 +775,8 @@
 					/sqoop/
 					--table
 					export_from_hdfs	
-					
+
+=============================================================================================					
 					
 15. hive和hbase整合：
 		1). 整合：
@@ -812,12 +814,155 @@
 					STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'  
 					WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,order:order_id,order:user_id")  
 					TBLPROPERTIES ("hbase.table.name" = "t_order");
+	
+===============================================================================================================	
 						
+16. flume
+		1). 安装：
+			a. 上传
+			b. 解压
+			c. 修改conf/flume-env.sh  文件中的JDK目录
+				注意：JAVA_OPTS 配置  如果我们传输文件过大 报内存溢出时 需要修改这个配置项
+			d. 验证安装是否成功  ./flume-ng version
+			e. 配置环境变量
+				export FLUME_HOME=/home/apache-flume-1.6.0-bin
+				
+		2). Source、Channel、Sink有哪些类型:
+			Flume Source
+			Source类型 	              | 说明
+			Avro Source 	            | 支持Avro协议（实际上是Avro RPC），内置支持
+			Thrift Source 	          | 支持Thrift协议，内置支持
+			Exec Source 	            | 基于Unix的command在标准输出上生产数据
+			JMS Source 	              | 从JMS系统（消息、主题）中读取数据
+			Spooling Directory Source | 监控指定目录内数据变更
+			Twitter 1% firehose Source|	通过API持续下载Twitter数据，试验性质
+			Netcat Source 	          | 监控某个端口，将流经端口的每一个文本行数据作为Event输入
+			Sequence Generator Source | 序列生成器数据源，生产序列数据
+			Syslog Sources 	          | 读取syslog数据，产生Event，支持UDP和TCP两种协议
+			HTTP Source 	            | 基于HTTP POST或GET方式的数据源，支持JSON、BLOB表示形式
+			Legacy Sources 	          | 兼容老的Flume OG中Source（0.9.x版本）
+
+			Flume Channel
+			Channel类型 	  说明
+			Memory Channel 	           | Event数据存储在内存中
+			JDBC Channel   	           | Event数据存储在持久化存储中，当前Flume Channel内置支持Derby
+			File Channel   	           | Event数据存储在磁盘文件中
+			Spillable Memory Channel   | Event数据存储在内存中和磁盘上，当内存队列满了，会持久化到磁盘文件
+			Pseudo Transaction Channel | 测试用途
+			Custom Channel 	           | 自定义Channel实现
+
+			Flume Sink
+			Sink类型 	说明
+			HDFS Sink 	        | 数据写入HDFS
+			Logger Sink 	      | 数据写入日志文件
+			Avro Sink 	        | 数据被转换成Avro Event，然后发送到配置的RPC端口上
+			Thrift Sink 	      | 数据被转换成Thrift Event，然后发送到配置的RPC端口上
+			IRC Sink    	      | 数据在IRC上进行回放
+			File Roll Sink 	    | 存储数据到本地文件系统
+			Null Sink 	        | 丢弃到所有数据
+			HBase Sink 	        | 数据写入HBase数据库
+			Morphline Solr Sink | 数据发送到Solr搜索服务器（集群）
+			ElasticSearch Sink 	| 数据发送到Elastic Search搜索服务器（集群）
+			Kite Dataset Sink 	| 写数据到Kite Dataset，试验性质的
+			Custom Sink 	      | 自定义Sink实现
+			
+		3). 两台机器的集群搭建：
+			a. 简介：
+				node001作为source的接收端，node003作为sink端下沉到hdfs, 其中node003作为两台机器的连接服务器，端口为10086，
+			使用avro进行连接
+			
+			b. node001的连接参数文件：
+				说明：	
+					该连接参数文件指定source端监控/opt/data/access.log文件，以exec的方式执行语句“tail -F /opt/data/access.log”
+				sink端连接node003客户机，使用avro方式，端口为10086；
+				
+					# name the components on this agent
+					a1.sources = r1
+					a1.sinks = k1
+					a1.channels = c1
+
+					# Describe/configure the source
+					a1.sources.r1.type = exec
+					a1.sources.r1.command = tail -F /opt/data/access.log
+
+					# Describe the sink
+					a1.sinks.k1.type = avro
+
+					a1.sinks.k1.hostname = node003
+					a1.sinks.k1.port = 10086
+
+					# Use a channel which buffers events in memory
+					a1.channels.c1.type = memory
+					a1.channels.c1.capacity = 1000
+					a1.channels.c1.transactionCapacity = 100
+
+					# Bind the source and sink to the channel
+					a1.sources.r1.channels = c1
+					a1.sinks.k1.channel = c1
+					
+			c. node003的连接参数文件：
+				说明：
+					sink端连接到hdfs
+					
+					# name the components on this agent
+					a1.sources = r1
+					a1.sinks = k1
+					a1.channels = c1
+
+					# Describe/configure the source
+					a1.sources.r1.type = avro
+					a1.sources.r1.bind = node003
+					a1.sources.r1.port = 10086
+
+					# Describe the sink
+					a1.sinks.k1.type = hdfs
+					a1.sinks.k1.hdfs.path = /log/%Y%m%d
+					a1.sinks.k1.hdfs.rollCount = 0
+					a1.sinks.k1.hdfs.rollInterval = 0
+					a1.sinks.k1.hdfs.roundValue = 5
+					a1.sinks.k1.hdfs.rollSize=10240
+					al.sinks.k1.hdfs.idleTimeout=5
+					al.sinks.k1.hdfs.fileType=DataStream
+					a1.sinks.k1.hdfs.useLocalTimeStamp=true
+					a1.sinks.k1.hdfs.callTimeout=40000
+
+					# Use a channel which buffers events in memory
+					a1.channels.c1.type = memory
+					a1.channels.c1.capacity = 1000
+					a1.channels.c1.transactionCapacity = 100
+
+					# Bind the source and sink to the channel
+					a1.sources.r1.channels = c1
+					a1.sinks.k1.channel = c1
+					
+		4). 启动：
+			a. 首先启动服务端node003:
+				flume-ng agent  -n a1 -c conf -f avro.conf -Dflume.root.logger=INFO,console
+				
+			b. 再启动客户端node001连接至node003的10086端口
+				flume-ng agent  -n a1 -c conf -f simple.conf2 -Dflume.root.logger=INFO,console
+				
+			c. 可以打开telnet 测试 
 						
+=============================================================================================
 						
-						
-						
-						
+17. redis
+		1). 安装：
+			a. 环境准备：gcc, tcl
+			
+			b. 解压，编译，安装：
+				make && make PREFIX=/opt/apps/redis/ install
+			
+			c. 设置环境变量，便于/redis-2.8.18/utils/install_server.sh的redis数据库的安装
+					
+			d. 安装redis的数据库工具：
+				/redis-2.8.18/utils/install_server.sh
+				
+			e. redis启动服务: redis-server
+			
+			f. 启动客户端：redis-cli
+			
+			g. 注：可通过redis-cli --help命令查询帮助文档
 						
 						
 						
