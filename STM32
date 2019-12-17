@@ -94,6 +94,76 @@
     
 3. /*GPIO引脚号定义*/： 玩转STM32 P75
    GPIO_Pin_0, ... GPIO_Pin_15;
+   
+4. 定义初始化结构体GPIO_InitTypeDef:（P76）定义位操作函数后，控制GPIO输出电平的代码得到了简化，但在控制GPIO输出电平前还需要初始化GPIO引脚的各种模式
+
+5. 定义引脚模式的枚举类型：（P77）GPIOSpeed_TypeDef 和 GPIOMode_TypeDef；
+   代码9-5使用枚举定义的GPIO初始化结构体：P79；
+   代码清单9-7给GPIO_InitTypeDef初始化结构体赋值范例：P79
+   
+6. 定义GPIO初始化函数：P80 接着前面的思路，对初始化结构体赋值后，把它输入到GPIO初始化函数，由它来实现寄存器配置。我们的GPIO初始化函数实现见代码9-6。
+   voidGPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
+
+
+三、初识STM32标准库
+
+1. 常用官方资料：P93
+
+
+四、第12章 GPIO输出—使用固件库点亮LED
+
+1. GPIO时钟宏“RCC_APB2Periph_GPIOB：是STM32标准库定义的GPIO端口时钟相关的宏，它的作用与“GPIO_Pin_x”这类宏类似，是用于指示寄存器位的，方便库函数使用；使用
+
+2. RCC_APB2PeriphClockCmd：（P110） 调用库函数RCC_APB2PeriphClockCmd来使能LED灯的GPIO端口时钟；
+   GPIO_Init：调用库函数，初始化GPIO；
+
+
+五、第13章 GPIO输入—按键检测
+
+1. 编程要点：
+   （1）使能GPIO端口时钟；（2）初始化GPIO目标引脚为输入模式(浮空输入)；（3）编写简单测试程序，检测按键的状态，实现按键控制LED灯。
+   
+2. GPIO_ReadInputDataBit(GPIOx,GPIO_Pin)：STM32标准库提供了库函数GPIO_ReadInputDataBit来获取位状态，该函数输入GPIO端口及引脚号，函数
+   返回该引脚的电平状态，高电平返回1，低电平返回0；
+   
+
+六、第14章 GPIO—位带操作
+
+1. 位带简介：
+   在STM32中，有两个地方实现了位带，一个是SRAM区的最低1MB空间，令一个是外设区最低1MB空间。这两个1MB的空间除了可以像正常的RAM一样操作外，他们还有
+   自己的位带别名区，位带别名区把这1MB的空间的每一个位膨胀成一个32位的字，当访问位带别名区的这些字时，就可以达到访问位带区某个比特位的目的。
+   P121；
+   
+2. STM32 的全部寄存器都可以通过访问位带别名区的方式来达到访问原始寄存器比特位的效果；
+
+
+七、第16章 RCC—使用 HSE/HSI 配置时钟
+
+1. RCC 主要作用—时钟部分：
+   设置系统时钟 SYSCLK、设置 AHB 分频因子（决定 HCLK 等于多少）、设置 APB2 分频因子（决定 PCLK2 等于多少）、设置 APB1 分频因子（决定 PCLK1 
+   等于多少）、设置各个外设的分频因子；控制 AHB、APB2 和 APB1 这三条总线时钟的开启、控制每个外设的时钟的开启。对于 SYSCLK、HCLK、PCLK2、PCLK1 
+   这四个时钟的配置一般是：PCLK2 = HCLK = SYSCLK=PLLCLK = 72M，PCLK1=HCLK/2 = 36M。这个时钟配置也是库函数的标准配置，我们用的最多的就是这个；
+   
+2. 图 16-1 STM32 时钟树：P135
+
+3. HSE 高速外部时钟信号；
+   PLL 时钟源：PLL时钟来源可以有两个，一个来自HSE，另外一个是HSI/2，具体用哪个由时钟配置寄存器CFGR的位16：PLLSRC设置。HSI是内部高速的时钟信号
+   PLL时钟PLLCLK
+   系统时钟SYSCLK：系统时钟来源可以是：HSI、PLLCLK、HSE，具体的时钟配置寄存器CFGR的位1-0：SW[1:0]设置
+   AHB总线时钟HCLK：系统时钟SYSCLK经过AHB预分频器分频之后得到时钟叫APB总线时钟，即HCLK
+   APB2总线时钟HCLK2：APB2总线时钟PCLK2由HCLK经过高速APB2预分频器得到，分频因子可以是:[1,2,4，8，16]，具体由时钟配置寄存器CFGR的位13-11：PPRE2[2:0]决定
+   APB1总线时钟HCLK1： APB1总线时钟PCLK1由HCLK经过低速APB预分频器得到
+   代码16-1设置系统时钟库函数：P137 static voidSetSysClockTo72(void)；
+   
+
+八、第17章 STM32中断应用概览
+
+1. 每个外设都可以产生中断；
+
+2. 异常类型：F103在内核水平上搭载了一个异常响应系统，支持为数众多的系统异常和外部中断
+
+3. P146
+
 
 
 
