@@ -238,12 +238,70 @@
    4）EXTI_LineCmd：控制是否使能EXTI线，可选使能EXTI线(ENABLE)或禁用(DISABLE)；
    
 6. 外部中断控制实验： P155
+   编程要点：
+   1）初始化用来产生中断的GPIO； 
+   2）初始化EXTI； 
+   3）配置NVIC； 
+   4）编写中断服务函数；
+   
+   EXTI_GetITStatus函数用来获取EXTI的中断标志位状态，如果EXTI线有中断发生函数返回“SET”否则返回“RESET”。实际上，EXTI_GetITStatus函数是通过读取
+   EXTI_PR寄存器值来判断EXTI线状态的；
+   
+   执行任务后需要调用EXTI_ClearITPendingBit函数清除EXTI线的中断标志位；
    
 7. GPIO_EXTILineConfig函数用来指定中断/事件线的输入源，它实际是设定外部中断配置寄存器的AFIO_EXTICRx值，该函数接收两个参数，第一个参数指定GPIO端口
    源，第二个参数为选择对应GPIO引脚源编号；
-
-
    
+8. 使用GPIO之前必须开启GPIO端口的时钟；用到EXTI必须开启AFIO时钟；
+
+
+十、第19章 SysTick—系统定时器
+
+1. SysTick简介：
+   SysTick—系统定时器是属于CM3内核中的一个外设，内嵌在NVIC中。系统定时器是一个24bit的向下递减的计数器，计数器每计数一次的时间为1/SYSCLK，一般我们
+   设置系统时钟SYSCLK等于72M。当重装载数值寄存器的值递减到0的时候，系统定时器就产生一次中断，以此循环往复；
+   
+   SysTick—系统定时器有4个寄存器，简要介绍如下。在使用SysTick产生定时的时候，只需要配置前三个寄存器，最后一个校准寄存器不需要使用；
+   表19-1SysTick寄存器汇总 P160
+   
+2. SysTick定时实验：
+   编程要点：
+   1、设置重装载寄存器的值
+   2、清除当前数值寄存器的值
+   3、配置控制与状态寄存器
+   SysTick 属于内核的外设，有关的寄存器定义和库函数都在内核相关的库文件core_cm3.h中；
+   
+   SysTick配置库函数：__STATIC_INLINE uint32_tSysTick_Config(uint32_tticks)
+   P162
+   用固件库编程的时候我们只需要调用库函数SysTick_Config()即可，形参ticks用来设置重装载寄存器的值，最大不能超过重装载寄存器的值224，当重装载寄存器
+   的值递减到0的时候产生中断，然后重装载寄存器的值又重新装载往下递减计数，以此循环往复。紧随其后设置好中断优先级，最后配置系统定时器的时钟等于
+   AHBCLK=72M，使能定时器和定时器中断，这样系统定时器就配置好了，一个库函数搞定；
+   
+   SysTick_Config()库函数主要配置了SysTick中的三个寄存器：LOAD、VAL和CTRL，有关具体的部分看代码注释即可；
+   
+   配置SysTick中断优先级：在SysTick_Config()库函数还调用了固件库函数NVIC_SetPriority()来配置系统定时器的中断优先级，该库函数也在core_m3.h中定义；
+   因为SysTick属于内核外设，跟普通外设的中断优先级有些区别，并没有抢占优先级和子优先级的说法。在STM32F103中，内核外设的中断优先级由内核SCB这个外设的
+   寄存器：SHPRx（x=1.2.3）来配置。有关SHPRx寄存器的详细描述可参考《Cortex-M3内核编程手册》4.4.8章节；
+   
+   SysTick初始化函数：voidSysTick_Init(void)
+   SysTick初始化函数由用户编写，里面调用了SysTick_Config()这个固件库函数，通过设置该固件库函数的形参，就决定了系统定时器经过多少时间就产生一次中断。
+   
+   SysTick中断时间的计算：
+   SysTick定时器的计数器是向下递减计数的，计数一次的时间TDEC=1/CLKAHB，当重装载寄存器中的值VALUELOAD减到0的时候，产生中断，可知中断一次的时间
+   TINT=VALUELOAD* TDEC=VALUELOAD/CLKAHB，其中CLKAHB=72MHZ。如果设置VALUELOAD为72，那中断一次的时间TINT=72/72M=1us。不过1us的中断没啥意义，
+   整个程序的重心都花在进出中断上了，根本没有时间处理其他的任务；
+   
+   SysTick定时时间的计算：
+   当设置好中断时间TINT后，我们可以设置一个变量t，用来记录进入中断的次数，那么变量t乘以中断的时间TINT就可以计算出需要定时的时间；
+   
+   SysTick定时函数：
+   
+   SysTick中断服务函数：voidSysTick_Handler(void)；
+   
+   
+十一、第20章 通讯的基本概念
+
+1. 
    
    
 
