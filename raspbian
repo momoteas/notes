@@ -1,0 +1,31 @@
+1. 源都新和升级:
+  sudo apt-get update
+  sudo apt-get upgrade
+  
+2. 更改apt软件源与系统源：
+    软件源：
+    sudo nano /etc/apt/sources.list
+    deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+    deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+    
+    系统源：
+    sudo nano /etc/apt/sources.list.d/raspi.list
+    deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ buster main ui（中科大）
+    
+3. 更改pip源：
+    sudo vi /etc/pip.conf
+    index-url=https://mirrors.aliyun.com/pypi/simple/
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
