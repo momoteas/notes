@@ -8,4 +8,27 @@
     e.测试：
         开启一个终端：mosquitto_sub -t 'test' -d
         另一个终端：mosquitto_pub -t 'test' -m 'hello world' 
+
+2. 安装dht的arduino IDE支持库：
+    项目 --> 加载库 --> 管理库: dht sensor library by adafruit
+                              adafruit sensor library (所有传感器的支持库)
+                              
+3. 安装mqtt的pubsubclient支持库：pubsubclient by Nick O'Leary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
