@@ -1,0 +1,11 @@
+1. 安装mqtt:
+    a. 更新apt-get: sudo apt-get update
+    b. 安装mosquitto服务器及客户端：sudo apt-get install mosquitto mosquitto-clients
+    c. 安装python对mqtt的支持：sudo pip install paho-mqtt
+    d. 查看mosquitto的配置：
+        cd /etc/mosquitto/
+        vi mosquitto.conf (一般实用默认配置就可以)
+    e.测试：
+        开启一个终端：mosquitto_sub -t 'test' -d
+        另一个终端：mosquitto_pub -t 'test' -m 'hello world' 
+    
