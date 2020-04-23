@@ -13,7 +13,25 @@
     项目 --> 加载库 --> 管理库: dht sensor library by adafruit
                               adafruit sensor library (所有传感器的支持库)
                               
-3. 安装mqtt的pubsubclient支持库：pubsubclient by Nick O'Leary
+3. arduino安装mqtt的pubsubclient支持库：pubsubclient by Nick O'Leary
+
+4. 安装node-red:
+    a. 安装nodejs环境：
+       sudo apt-get install npm
+       sudo apt-get install nodejs
+       sudo apt-get install nodejs-legacy
+       注:
+         (1).npm和node版本对应关系https://nodejs.org/zh-cn/download/releases/
+         (2).安装指定版本npm:
+             sudo npm install -g npm@6.4.1
+             npm install -g n v10.15.2
+
+    b. 安装node-red:
+       sudo npm install node-red --unsafe-perm
+       
+    c. 安装node-red-dashboard
+       进入 cd ~/.node-red
+            npm i node-red-dashboard
 
 
 
