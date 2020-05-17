@@ -33,25 +33,13 @@
        进入 cd ~/.node-red
             npm i node-red-dashboard
 
-5. 实现 WiFi 断线自动重连
-  a. 1.Python 代码 autowifi.py，放在 /home/pi 目录下:
-  #!/usr/bin/python
-  import os, time 
-  while True:
-    if '192' not in os.popen('ifconfig | grep 192').read():
-        print '\n****** wifi is down, restart... ******\n'
-        os.system('sudo /etc/init.d/networking restart')
-    time.sleep(5*60) #5 minutes
-    
-  b. Shell脚本autowifi.sh，也放在 /home/pi 目录下:
-  #!/bin/sh
-  python /home/pi/autowifi.py &
-  
-  c. 开机自动启动以上脚本：在终端窗口执行以下命令即可
-  sudo cp -f /home/pi/autowifi.sh /etc/init.d/
-  sudo chmod +x /etc/init.d/autowifi.sh
-  sudo chown root:root /etc/init.d/autowifi.sh 
-  sudo update-rc.d autowifi.sh defaults 
+5. 防止raspbian掉线：https://shumeipai.nxez.com/2017/01/25/raspberry-pi-wifi-broken-automatically-reconnect.html
+   创建并编辑文件/etc/modprobe.d/8192cu.conf
+   sudo nano /etc/modprobe.d/8192cu.conf
+   并且粘贴下列内容
+   # Disable power saving
+   options 8192cu rtw_power_mgnt=0 rtw_enusbss=1 rtw_ips_mode=1
+   然后使用sudo reboot进行重启。
 
 
 
